@@ -30,6 +30,10 @@ mongoose
 // Public
 
 app.use(express.static(path.join(__dirname, "public")));
+app.use((req, res, next) => {
+  console.log("Salve, sou o MIDDLEWARE");
+  next();
+});
 
 //Rotas
 app.use("/admin", admin);
