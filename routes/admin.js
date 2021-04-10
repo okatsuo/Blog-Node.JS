@@ -16,6 +16,7 @@ router.get("/posts", (req, res) => {
 
 router.get("/categorias", (req, res) => {
   Categoria.find()
+    .sort({ date: "desc" })
     .lean()
     .then((categorias) => {
       res.render("admin/categorias", { categorias: categorias });
@@ -62,7 +63,7 @@ router.post("/categorias/nova", (req, res) => {
       slug: req.body.slug,
     };
 
-    new Categorias(novaCategoria)
+    new Categoria(novaCategoria)
       .save()
       .then(() => {
         req.flash("success_msg", "Categoria criada com sucesso!");
