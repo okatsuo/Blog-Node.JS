@@ -57,10 +57,12 @@ router.post("/categorias/nova", (req, res) => {
     new Categorias(novaCategoria)
       .save()
       .then(() => {
-        console.log("categoria salva com sucesso");
+        req.flash("success_msg", "Categoria criada com sucesso!");
+        res.redirect("/admin/categorias");
       })
       .catch((err) => {
-        console.log("houve um erro ao cadastrar: " + err);
+        req.flash("error_msg", "houve um erro ao cadastrar a categoria!");
+        res.redirect("/admin");
       });
   }
 });
