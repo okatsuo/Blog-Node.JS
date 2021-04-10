@@ -48,21 +48,21 @@ router.post("/categorias/nova", (req, res) => {
 
   if (erros.length > 0) {
     res.render("admin/addcategorias", { erros: erros });
+  } else {
+    const novaCategoria = {
+      nome: req.body.nome,
+      slug: req.body.slug,
+    };
+
+    new Categorias(novaCategoria)
+      .save()
+      .then(() => {
+        console.log("categoria salva com sucesso");
+      })
+      .catch((err) => {
+        console.log("houve um erro ao cadastrar: " + err);
+      });
   }
-
-  const novaCategoria = {
-    nome: req.body.nome,
-    slug: req.body.slug,
-  };
-
-  new Categorias(novaCategoria)
-    .save()
-    .then(() => {
-      console.log("categoria salva com sucesso");
-    })
-    .catch((err) => {
-      console.log("houve um erro ao cadastrar: " + err);
-    });
 });
 
 module.exports = router;
